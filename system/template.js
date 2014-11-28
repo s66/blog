@@ -111,7 +111,8 @@ function list(data){
 
 function other(data){
 	$data = {
-		categoryText: data.text
+		categoryText: data.text,
+		title: data.text
 	};
 	$template = {
 		main: data.id +'.html'
