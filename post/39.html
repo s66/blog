@@ -1,0 +1,88 @@
+<!doctype html><html><head><meta charset="utf-8"/><title>动态原型创建类的陷阱</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+	<section id="main">
+		<h2 class="title">动态原型创建类的陷阱</h2>
+		<div class="post"><h3>无法找到方法的原型方式</h3><textarea class="lang-js">
+function Car(){
+
+    if(!Car._isBind){
+        Car._isBind = true;
+        Car.prototype = {
+            hi: function(){}
+        };
+    }
+}
+
+var car1 = new Car();
+var car2 = new Car();
+alert(typeof car1.hi); //undefined
+alert(typeof car2.hi); //function
+</textarea><h3>正确的原型方式1</h3><textarea class="lang-js">
+function Car(){
+
+    if(!Car._isBind){
+        Car._isBind = true;
+        Car.prototype.hi = function(){};
+    }
+}
+
+var car1 = new Car();
+var car2 = new Car();
+alert(typeof car1.hi); //function
+alert(typeof car2.hi); //function
+</textarea><h3>正确的原型方式2</h3><textarea class="lang-js">
+function Car(){
+
+}
+Car.prototype = {
+    hi: function(){}
+};
+
+var car1 = new Car();
+var car2 = new Car();
+alert(typeof car1.hi); //function
+alert(typeof car2.hi); //function
+</textarea><h3>探索</h3><p>为什么会写出方法1？</p><p>为什么方法1不能用？</p><p>其实在写原型方式创建类的过程中，因为原型方法或者属性很多，经常会这么写，而且原型方式2中就没问题</p><textarea class="lang-js" edit=off >
+x.prototype = {
+    a: .,
+    b: .,
+    c: .,
+    ...
+};
+</textarea><p>我们在进一步探索下代码</p><textarea class="lang-js">
+function Car(){
+    //创建this，指定this的数据源，即Car.prototype的引用
+
+    if(!Car._isBind){
+        Car._isBind = true;
+        Car.prototype = { //重新设置Car.prototype，创建新的引用B
+            hi: function(){}
+        };
+
+    }
+    console.info(this);
+}
+
+var car1 = new Car(); //第一次Car.prototype 指向 A，this从A中读取
+var car2 = new Car(); //第二次Car.prototype 指向 B，this从B中读取
+
+//因为Car.prototype是引用类型的，所以直接给prototype赋值就会改变引用地址
+//而通过Car.prototype.hi = function(){}设置的话，就会直接改变A，从而达到类能正确的获取原型方法
+</textarea><p class="xinfo">通过上面代码可以得出，new 创建对象，首先会初始化this（明确this的指向），然后再执行构造函数，其次，prototype是采用晚期绑定的，也就是说后期对prototype的更改都会体现在this中，因为prototype是引用类型，对象在创建的时候就明确了this指向对应的prototype</p><textarea class="lang-js">
+function Car(){
+
+}
+var car1 = new Car();
+Car.prototype.a = 1; //直接改变prototype中的值则直接体现在当前的this中
+alert(car1.a); //1
+Car.prototype = {a:2}; //改变prototype引用，无法体现在当前的this中
+alert(car1.a); //1 ,因为car1的this在初始化的时候就明确指向了第一次的{a:1}，固改变引用是无法产生效果的
+
+var car2 = new Car(); //此处创建的对象this已经重新指向第二次的{a:2}，固值已经改变
+alert(car2.a); //2
+</textarea><h3>类似场景</h3><textarea class="lang-js">
+var a = {i:1};
+a.x = a = {i:2};
+alert(typeof a.x); //undefined
+</textarea></div>
+	</section>
+</div></body></html>

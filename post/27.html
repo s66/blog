@@ -1,0 +1,39 @@
+<!doctype html><html><head><meta charset="utf-8"/><title>JS循环和递归</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+	<section id="main">
+		<h2 class="title">JS循环和递归</h2>
+		<div class="post"><h3>前言</h3><p>JS循环和递归是很常见的结构，如何选择合适的结构书写代码，这里就略微讨论下他们的区别和优缺点。</p><h3>特点</h3><p>循环：速度快，内存开销小，应用场景广大；递归：结构简单，书写容易。</p><p class="xinfo">递归有函数调用的过程，会产生额外的性能和内存开销，涉及到栈的调用，有出现栈溢出的危险。</p><p class="xinfo">在产生中间运算数据的算法中，采用递归就比较简单，让函数自行管理这些数据。</p><h4>一个简单的domtree的nodeName结构生成算法，递归生成就比较简单。</h4><textarea class="lang-js" edit=off >
+//递归生成dom树
+function getTree(node, tree, level){
+    if(node.nodeType != 1){
+        return;
+    }
+    var children = node.children;
+    for(var i = 0; i < children.length; i++){
+        tree.push(Array(level+1).join('  ') + children[i].nodeName);
+        getTree(children[i], tree, level+1);
+    }
+}
+var tree = [];
+getTree(document.body, tree, 0);
+//>> tree.join('\n')
+
+</textarea><h4>递归和循环实现阶乘算法</h4><textarea class="lang-js" edit=off >
+//递归
+function factorial(n){
+    if(n > 1){
+        return factorial(n - 1) * n;
+    }else{
+        return 1;
+    }
+}
+//循环
+function factorial(n){
+    var result = 1;
+    while(n){
+        result *= n--;
+    }
+    return result;
+}
+</textarea><h3>如何选择</h3><p>递归生成domtree这个例子用循环写就相当麻烦，阶乘例子既可写成递归也可以采用循环，但是由于大量运算的时候，会产生性能问题和栈溢出的危险，所以采用循环结构更加合适。<br/>总之，在2种方案可选的情况下，我们就需要从代码性能和代码结构简洁性来考虑了。</p></div>
+	</section>
+</div></body></html>

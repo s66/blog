@@ -1,0 +1,20 @@
+CSS自适应宽度居中的实现
+###html代码
+code.html
+<!doctype html>
+<style>
+.box1{
+	float: left; /*div宽度自适应*/
+	position: relative;
+	left: 50%;
+}
+.box2{
+	position: relative;
+	left: -50%; /*修正位置*/
+	background: #ddd;
+}
+</style>
+<div class="box1">
+	<div class="box2">########################################</div>
+</div>
+.

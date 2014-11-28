@@ -1,0 +1,15 @@
+JS编码函数简析
+###前言
+为解决不同编码之间传递数据出现乱码问题，我们常常需要对数据进行一定的编码，JS常见的编码函数有
+
++ escape
++ encodeURI
++ encodeURIComponent
+
+###区别
+
++ escape 不会编码 @*/+
++ encodeURI 不会编码 ~!@#$&*()=:/,;?+'
++ encodeURIComponent 不会编码  ~!*()'
+
+xinfo escape属于bom级别的api，一般情况下使用encodeURIComponent来编码

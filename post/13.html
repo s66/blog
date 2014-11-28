@@ -1,0 +1,43 @@
+<!doctype html><html><head><meta charset="utf-8"/><title>CSS实现完美去除链接虚线框</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+	<section id="main">
+		<h2 class="title">CSS实现完美去除链接虚线框</h2>
+		<div class="post"><h3>前言</h3><p>有时为了增加页面美感，我们需要去除链接虚线框。</p><h3>代码实现</h3><textarea class="lang-html">
+<!doctype html>
+<style>
+a:focus{outline:none;}    
+</style>
+<a href="javascript:;">前端开发</a>
+<script>
+var version = navigator.userAgent.toLowerCase().match(/msie ([\d.]+)/);
+if(version && parseInt(version[1]) < 8){ //判断浏览器版本
+    var a = document.getElementsByTagName('a'), i = a.length;
+    while(i--){
+        a[i].setAttribute('hideFocus', 1); //设置hideFocus为true
+    }
+}
+</script>
+</textarea><p class="xinfo">注意，这里的JS代码必须放在domready触发后，而且针对后期添加的链接是无法去除虚线的。</p><h3>实现原理</h3><ul><li>在支持a:foucs伪类的浏览器中使用css完成去除虚线</li><li>在IE6-7中使用JS来添加其私有属性hidefocus</li></ul><h3>糟糕的实现</h3><ul><li>使用CSS表达式</li><li>使用失去焦点的方式</li></ul><h4>示例代码</h4><textarea class="lang-html">
+<!doctype html>
+<style>
+a{blr:expression(this.onFocus=this.blur());}/*支持IE*/
+</style>
+<a href="javascript:;">前端开发</a>
+<script>
+var a = document.getElementsByTagName('a'), i = a.length;
+while(i--){
+    a[i].onfocus = function(){
+        this.blur();
+    };
+}
+</script>
+</textarea><p class="xinfo">上述的代码存在的性能问题，css表达式将不断的被触发。 </p><h3>写在最后</h3><p>上面有提到使用JS给ie6-7去除虚线会存在后期添加的链接无法去除虚线框的问题，在此奉上一个折中的办法。</p><textarea class="lang-html">
+<!doctype html>
+<style>
+a:focus{outline:none;}
+a{*zoom:expression(this.style.zoom=1,this.hideFocus=true);}
+</style>
+<a href="javascript:;">前端开发</a>
+<button onclick="this.nextSibling.innerHTML+='<a href=javascript:;>新添加的链接</a><br>'">添加新链接</button><div></div>
+</textarea><p class="xinfo">上述使用的方法效率还是蛮高的，一般不会存在性能问题，this.style.zoom=1将删除当前节点的css表达式</p></div>
+	</section>
+</div></body></html>

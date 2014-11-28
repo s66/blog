@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"/><title>IE6支持position:fixed</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+	<section id="main">
+		<h2 class="title">IE6支持position:fixed</h2>
+		<div class="post"><h3>前言</h3><p>层使用position:fixed的场景经常遇到，而IE6在国内仍然流行，针对ie6不支持原生fixed也无伤大雅，因为处理起来也不麻烦，也就几行简单的代码！</p><h3>代码实现</h3><h4>固定在左下角的层</h4><textarea class="lang-html">
+<!doctype>
+<style>
+/*core code for fixed*/
+body{/*修正滚动的过程中fixed层不断闪烁的问题*/
+    _background: url(about:blank);
+    _background-attachment: fixed;
+}
+.fixed{
+    position: fixed;
+    left: 10px;
+    bottom: 10px;
+    _position: absolute;
+    _top: expression(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-10);
+}
+/*end*/
+
+body{height:2000px;}
+.fixed{background:#666;width:100px;height:100px;}
+</style>
+<div class="fixed">我固定在左下角</div>
+</textarea><p class="xinfo">通过ie的css表达式执行运算，实时的给fixed层设置top属性实现定位，其中eval里面包含的就是纯粹的JS语句。</p><h3>一些思考</h3><ol><li>css表达式的性能问题</li><li>是否值得为ie6这么做</li></ol></div>
+	</section>
+</div></body></html>

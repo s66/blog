@@ -1,0 +1,16 @@
+<!doctype html><html><head><meta charset="utf-8"/><title>CSS实现网站快速变灰白色</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+	<section id="main">
+		<h2 class="title">CSS实现网站快速变灰白色</h2>
+		<div class="post"><h3>代码</h3><textarea class="lang-css" edit=off >
+html {
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: url("data:image/svg+xml;utf8,#grayscale");
+    filter: gray;
+    filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
+}
+</textarea></div>
+	</section>
+</div></body></html>

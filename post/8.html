@@ -1,0 +1,36 @@
+<!doctype html><html><head><meta charset="utf-8"/><title>JS中常见的问题</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+	<section id="main">
+		<h2 class="title">JS中常见的问题</h2>
+		<div class="post"><h3>前言</h3><p>在做JS开发的时候，往往因为一些怪异的原因产生一些难以定位的bug，由此而导致大量的时间花费在查错上，为避免类似问题的发生，固在此予以记录。</p><h3>一些怪异的解释</h3><ol><li>对象中的属性包含关键字</li><li>对象中结尾出现逗号</li><li>replace的问题</li></ol><h4>对象中的属性包含关键字</h4><p>请执行下面这行代码，你就会发现一些问题，因为他在IE下报错了。</p><textarea class="lang-js">
+var obj = { default: 'abc' };
+alert(obj.default);
+</textarea><p class="xinfo">在IE下会出现错误，具体原因？解决方法是关键字属性使用引号括起来。</p><h4>对象中结尾出现逗号</h4><textarea class="lang-js">
+var obj={ 'default': 'abc', };
+alert(obj['default']);
+</textarea><p class="xinfo">在IE下会出现错误，具体原因？解决方法是去除末尾的逗号。</p><h4>replace的问题</h4><textarea class="lang-js">
+var htmlstr = '笔记本价格：{$price}'; 
+alert([
+    htmlstr.replace(/\{\$price\}/, '$_5999'), //出现异常
+    htmlstr.replace(/\{\$price\}/, '$+5999'), //出现异常
+    htmlstr.replace(/\{\$price\}/, '$5999'), //正常
+    htmlstr.replace('{$price}', '$+5999') //正常
+].join('\n'));
+</textarea><p class="xinfo">在IE浏览器下返回『笔记本价格：笔记本价格：{$price}5999』，其实我们目的是想返回『笔记本价格：$_5999』。这个问题产生的原因是IE会把『$_』匹配成htmlstr。</p><p class="xinfo">在使用replace替换字符串的过程中，请注意替换的内容中是否包含匹配变量『$1-9』,使用$$方式转义$字符串。</p><h3>一些易错的场景</h3><ol><li>获取月份</li><li>局部变量泄漏</li><li>浮点运算精度问题</li><li>typeof误用</li><li>parseInt非10进制转换</li></ol><h4>获取月份</h4><textarea class="lang-js">
+var date = new Date();
+alert(date.getMonth());
+</textarea><p class="xinfo">获取当前月份必须+1，因为获取到的月份是从0开始的。</p><h4>局部变量泄漏</h4><textarea class="lang-js">
+function func(){
+    var a = b = 12;
+}
+func();
+alert(typeof a +'#'+ typeof b); 
+</textarea><p class="xinfo">有时一不小心就写出上面var a=b=1的代码，殊不知b已经成全局变量了。</p><h4>浮点运算精度问题</h4><textarea class="lang-js">
+alert(8.20 + 5.10); //13.299999999999999
+</textarea><p class="xinfo">JS浮点运算会出现精度问题，所以很容易造成一些难以排查的逻辑问题。</p><h4>typeof误用</h4><textarea class="lang-js">
+alert(typeof NaN); //number
+</textarea><p class="xinfo">其中还包括Infinity，-Infinity，null等，容易造成疏忽。</p><h4>parseInt非10进制转换</h4><textarea class="lang-js">
+alert(parseInt('077')); //ie8：63，其他：77
+alert(parseInt('078')); //ie8：7，其他：78
+</textarea><p class="xinfo">在ie8浏览器中测试，出现了非预期的结果，ie8针对0开头的字符串使用8进制进行转换，而非10进制。</p></div>
+	</section>
+</div></body></html>

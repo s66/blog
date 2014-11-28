@@ -1,0 +1,16 @@
+<!doctype html><html><head><meta charset="utf-8"/><title>ie6-7bug之margin占位</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+	<section id="main">
+		<h2 class="title">ie6-7bug之margin占位</h2>
+		<div class="post"><h3>前言</h3><p>无意中用到了a的margin-left，在ie6下预览居然发现有问题。</p><h3>代码</h3><textarea class="lang-html">
+<!doctype html>
+<meta charset="utf-8"/>
+<style>
+.mg{margin-left:50px;cursor:pointer;background:#ccc;}
+</style>
+<a href="#" class="mg">a标签无修正</a><br/>
+<a href="#" class="mg" style="*zoom:1;">a标签加zoom修正</a><br/>
+<span class="mg">span标签无修正</span>
+<p>(ie6-7)浏览器:margin出来的空间包括在A的点击区域内</p>
+</textarea><h3>结语</h3><p>ie6-7下css常常会出现各种莫名其妙的问题，而加zoom属性往往能解决大多数问题！</p></div>
+	</section>
+</div></body></html>

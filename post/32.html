@@ -1,0 +1,23 @@
+<!doctype html><html><head><meta charset="utf-8"/><title>CSS自适应宽度居中的实现</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+	<section id="main">
+		<h2 class="title">CSS自适应宽度居中的实现</h2>
+		<div class="post"><h3>html代码</h3><textarea class="lang-html">
+<!doctype html>
+<style>
+.box1{
+    float: left; /*div宽度自适应*/
+    position: relative;
+    left: 50%;
+}
+.box2{
+    position: relative;
+    left: -50%; /*修正位置*/
+    background: #ddd;
+}
+</style>
+<div class="box1">
+    <div class="box2">########################################</div>
+</div>
+</textarea></div>
+	</section>
+</div></body></html>

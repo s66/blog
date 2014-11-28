@@ -1,0 +1,5 @@
+require('fso').copys('D:/all/wwwroot/blog', 'D:/all/program\\goagent-goagent-0772f4e\\ggupload-python\\gae\\static', {
+    skipFolderRegExp: /\.res$|\bsystem$/, //跳过所有结尾是.res的文件夹
+    matchFileRegExp: /\.(html|js|css|gif|jpg|png)$/, //复制所有扩展名是上述的文件
+    skipFileRegExp: /\.res\.\w+$/ //跳过所有倒数第二个点后面是跟.res的文件，即『.res.扩展名』
+});

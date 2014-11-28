@@ -1,0 +1,33 @@
+<!doctype html><html><head><meta charset="utf-8"/><title>JS语法高亮设计简析</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+	<section id="main">
+		<h2 class="title">JS语法高亮设计简析</h2>
+		<div class="post"><h3>前言</h3><p>写JS语法高亮既可以熟悉JS语法又可以练习正则使用。</p><h3>代码演示</h3><h4>演示代码</h4><p class="xinfo">可以尝试拷贝其他JS代码到下方文本框中进行加亮演示。</p><textarea id="codebox" class="coderes" rows="14">
+function $for(new_){
+    var a = 100, //注释而已
+        b = [.1e-2, /ab\/c[//////]/, '字符串  a\'a\\\'a\\'];
+    /*
+        function "name = 1234"
+    */
+    while(!a){
+        a += b[0];
+        return 045 + 0xee;
+    }
+    window.alert({
+        name: /abcd/gi
+    });
+}
+</textarea><p><button id="doparse">执行加亮</button> 耗时：<span id="timex"></span></p><h4>演示结果</h4><div id="consolebox">...</div><p><style>.lang-box{ background:#060606;color:#eee; font-family:monaco,verdana; font-size:12px; line-height:1.8; text-shadow:none;}.lang-box ol{padding-left:50px!important;margin-left:0;}.lang-box li{background:#222;border-left:1px solid #333;padding:0 0 0 5px;}.quote{color:#89D726;}.comment{color:#666;}.regexp{color:#FE81F8;}.keyword{color:#119BEE;font-weight:bold;font-style:italic;}.userkeyword{color:#FFCC00}.id{}.number{color:#86cc99;font-style:italic;}.operate{}.ostring{color:#B7B700;}</style></p><script>!function(c){var E=[];var l=/((?:[:(\[]|={1,3}|,|(?:typeof|return)(?![\w$]))\s*\/(?:\\\\|\\\/|\[.+?\]|[^\/\r\n])+\/[gim]{0,3})|( )|(\t)|(&)|(<)|(>)|("(?:\\\\|\\"|[^"\r])*"|'(?:\\\\|\\'|[^'\r])*')|(\/\/.*|\/\*[\w\W]*?\*\/)|((?:boolean|break|byte|case|catch|char|class|const|continue|default|double|do|else|extends|false|finally|final|float|for|function|goto|if|implements|import|instanceof|interface|int|in|long|native|new|null|package|private|protected|public|return|short|static|super|switch|synchronized|typeof|this|throw|throws|transient|true|try|var|void|while|with)(?![\w$]))|((?:window|document|alert|undefined|style|length|stopPropagation|mouseKey|documentElement|clientWidth|body|offsetWidth|scrollHeight|offsetHeight|clientX|clientY|offsetLeft|offsetTop|setCapture|onblur|preventDefault|Math|min|max|releaseCapture|getElementById|test|substr|match|getElementsByTagName|push|RegExp|className|slice|getAttribute|childNodes|nodeType|parentNode|toUpperCase|split|nodeName|previousSibling|nextSibling|createElement|indexOf|innerHTML|firstChild|createDocumentFragment|appendChild|insertBefore|removeChild|cloneNode|replaceChild|replace|join|parseFloat|currentStyle|defaultView|getComputedStyle|parseInt|offsetParent|removeAttribute|setAttribute|contains|compareDocumentPosition|target|srcElement|cancelBubble|returnValue |call|shift|getTime|toGMTString|escape|cookie|unescape|setTime|prototype|toString|apply|arguments|callee|complete|onload|createTextNode|styleSheet|setTimeout|clearTimeout|setInterval|clearInterval|toLowerCase|doScroll|ActiveXObject|pow|sqrt|abs|asin|sin|getSelection|selection|removeAllRanges)(?![\w$]))|([a-zA-Z$_][\w$]*)|(0x[0-9a-fA-F]+|(?:\d+\.\d*|\d*\.\d+|\d+)(?:[eE][+\-]?\d+)?)|(\r\n?|\r?\n)|([;,?:~]|\^=?|\*=?|%=?|\+[+=]?|\/[*\/=]?|\|[|=]?|&[&=]?|-[\-=]?|={1,3}|!={0,2}|<{1,2}=?|>{1,3}=?)|([\[\]{}()])|(\.)/g;c('#doparse').click(function(){var e=+new Date;c('#consolebox').html('<div class="lang-box"><ol><li>'+m(c('#codebox').val())+'</li></ol></div>');c('#timex').html(+new Date-e+'ms')});function f(e){return c.encodeHTML(e).replace(/\t/g,'&nbsp;&nbsp;&nbsp;&nbsp;').replace(/ /g,'&nbsp;')}function m(g){var a=[],F=g;g.replace(l,function(b,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,G){switch(!1){case!n:a.push(b.replace(/(?:(,|:|={1,3})|(\{|\(|\[)|(typeof|return))(\s*)(\/.+)/,function(e,h,i,j,k,D){var d='';switch(!1){case!h:d='<span class="operate">'+h+'</span>';break;case!i:d='<span class="ostring">'+i+'</span>';break;case!j:d='<span class="keyword">'+j+'</span>';break}if(k){d+=k.replace(/\t/g,'&nbsp;&nbsp;&nbsp;&nbsp;').replace(/ /g,'&nbsp;')}return d+'<span class="regexp">'+f(D)+'</span>'}));break;case!o:a.push('&nbsp;');break;case!p:a.push('&nbsp;&nbsp;&nbsp;&nbsp;');break;case!q:a.push('&amp;');break;case!r:a.push('&lt;');break;case!s:a.push('&gt;');break;case!t:a.push('<span class="quote">'+f(b).replace(/[\r\n]/g,'</span><span class="quote">')+'</span>');break;case!u:a.push('<li><span class="comment">'+f(b).replace(/\r/g,'').replace(/[\r\n]/g,'</span></li><li><span class="comment">')+'</span></li>');break;case!v:a.push('<span class="keyword">'+b+'</span>');break;case!w:a.push('<span class="userkeyword">'+b+'</span>');break;case!x:a.push('<span class="id">'+b+'</span>');break;case!y:a.push('<span class="number">'+b+'</span>');break;case!z:a.push('</li><li>');break;case!A:a.push('<span class="operate">'+b+'</span>');break;case!B:a.push('<span class="ostring">'+b+'</span>');break;case!C:a.push('<span class="dot">'+b+'</span>');break}});return a.join('')}}($1k);</script><h3>高亮原理</h3><p>通过正则匹配出需要加亮的元素，生成html，通过样式进行加亮。</p><h3>高亮的元素</h3><ol><li>关键字，保留字</li><li>自定义关键字</li><li>字符串</li><li>数字</li><li>正则</li><li>注释</li><li>其他</li></ol><h4>关键字，保留字的正则</h4><textarea class="lang-js" edit=off >
+= /(?:boolean|break|byte|case|catch|char|class|const|continue|default|double|do|else|extends|false|finally|final|float|for|function|goto|if|implements|import|instanceof|interface|int|in|long|native|new|null|package|private|protected|public|return|short|static|super|switch|synchronized|this|throw|throws|transient|true|try|var|void|while|with)(?![\w$])/
+</textarea><h4>自定义关键字的正则</h4><textarea class="lang-js" edit=off >
+= /(?:window|document|alert|undefined)(?![\w$])/
+</textarea><h4>字符串的正则</h4><textarea class="lang-js" edit=off >
+= /"(?:\\\\|\\"|[^"\r\n])*"|'(?:\\\\|\\'|[^'\r\n])*'/
+</textarea><h4>数字的正则</h4><textarea class="lang-js" edit=off >
+= /0x[0-9a-fA-F]+|(?:\d+\.\d*|\d*\.\d+|\d+)(?:[eE][+\-]?\d+)?/
+</textarea><h4>正则的正则</h4><textarea class="lang-js" edit=off >
+= /\/(?:\\\\|\\\/|\[.+?\]|[^\/\r\n])+\/[gim]{0,3}(?!\w|\$)/
+</textarea><h4>注释的正则</h4><textarea class="lang-js" edit=off >
+= /\/\/.*|\/\*[\w\W]*?\*\//
+</textarea><h4>其他的正则</h4><p>比如标识符，括号匹配</p></div>
+	</section>
+</div></body></html>

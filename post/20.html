@@ -1,0 +1,55 @@
+<!doctype html><html><head><meta charset="utf-8"/><title>JS跨域的各种解决方案及实现</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+	<section id="main">
+		<h2 class="title">JS跨域的各种解决方案及实现</h2>
+		<div class="post"><h3>前言</h3><p>跨域问题很经典，也很常见，了解跨域问题，在现实的应用开发中才能做到心中有数。</p><h3>跨域问题分类</h3><ol><li>跨域的dom操作（iframe操作）</li><li>跨域提交和接收数据</li></ol><p>下面将以各种经典的例子来讨论方案和实现方式</p><h3>iframe自适应高度</h3><p>通过iframe加载其他域的页面，iframe的高度自适应于被加载的页面</p><h4>实现原理</h4><p class="xinfo">利用父页面操作子页面的location.hash无跨域限制的方式实现高度传递</p><ol><li>主页面main1.html通过iframe加载跨域页面autoheight.html</li><li>跨域页面autoheight通过iframe加载代理页面proxy.html（与主页面同域）</li><li>监测autoheight的高度，当高度改变时将高度信息传给proxy的hash值</li><li>检测proxy的hash值是否改变，当值改变时则调用主页面的相关函数（因为proxy能访问main1）</li></ol><h4>代码演示</h4><textarea class="lang-html">
+<!doctype html>
+<style>
+#header{background:#000;color:#eee;padding:8px;}
+#iframe{width:100%}
+</style>
+<div id="header" >主页面地址：http://blog.1kjs.com/demo/crossdomain/main1.html</div>
+<iframe id="iframe" frameborder="0" src="http://cc1kjs.appsp0t.com/demo/crossdomain/autoheight.html"></iframe>
+<script>
+function autoheight(height){ //代理页面将操作这个函数来设置iframe的高度
+    document.getElementById('iframe').height = height;
+}    
+</script>
+</textarea><p class="xinfo">关于这里使用了2个定时器，问题应该不是很大，主要是因为没有检测的相关API可用，假如页面高度不是实时的，autoheight页面的定时器可以换成window.onresize，而proxy中的定时器也有替代方案，方案就是：每次设置proxy.src的时候，给他的url后面加上『?时间戳』，类似proxy.html?1381200606719#hashvalue</p><p>谷歌搜索<a class="glink" href="https://www.google.com/search?q=iframe自适应高度" target="_blank">iframe自适应高度</a><br/></p><h3>跨子域ajax请求</h3><p>类似webqq中的一个应用例子，其中桌面页是http://web2.qq.com/webqq.html，而添加应用中需要用到后台数据，其中数据是通过http://cgi.web2.qq.com/...这个接口取到的，并且采用的是传统的ajax方式，传统ajax是不能跨子域的。</p><h4>实现原理</h4><p class="xinfo">核心原理是代理页面执行同域ajax请求和设置document.domain突破跨子域传值。</p><ol><li>主页面web2.qq.com通过iframe载入代理页cgi.web2.qq.com</li><li>设置代理页的document.domain='web.qq.com'</li><li>通过代理页面向cgi接口发起ajax请求并返回数据</li><li>代理页将返回的数据传给主页面</li></ol><p>谷歌搜索<a class="glink" href="https://www.google.com/search?q=跨子域ajax请求" target="_blank">跨子域ajax请求</a><br/></p><h3>传统跨域操作iframe</h3><p>传统方式跨域操作iframe需要双向代理，并且每个流程都必须做2次代理，确实有点麻烦，不过这里我做了封装，调用起来很简单。</p><p><a class="xlink" href="http://blog.1kjs.com/demo/crossdomain/dompage_a.html">跨域iframe相互操作demo</a><br/><a class="xlink" href="http://blog.1kjs.com/demo/crossdomain/co.js">crossX跨域模型封装</a><br/></p><h3>html5之postMessage跨域</h3><p>有了postMessage，那么实现跨域iframe操作就极其简单了，连代理页面都不需要就能直接进行了。</p><p class="xinfo">因为ie6-7，完美支持无代理window.name跨域操作，而针对其他不支持无代理跨域操作window.name的浏览器使用window.postMessage发送数据</p><p><a class="xlink" href="http://blog.1kjs.com/demo/crossdomain/postmessage_a.html">跨域iframe相互操作『终极实用版』</a><br/><a class="xlink" href="http://blog.1kjs.com/demo/crossdomain/crossX.js">crossX跨域模型加强版封装</a><br/></p><h4>无代理window.name跨域发送和接收数据</h4><textarea class="lang-js" edit=off >
+    target.name = data; //向target目标窗口发送数据(target指向目标的window)
+    var _name = window.name = ''; //缓存当前窗口的name值
+    setInterval(function(){ //因为没有name改变触发的事件函数，这里用定时器监测是否有新数据
+        if(_name != window.name){ //name发生改变，执行操作
+            _name = window.name;
+            //通过window.name获取发送的数据
+        }
+    },16);
+</textarea><p class="xinfo">这种方式只支持ie，而且在定时器的时间间隔内发送数据将会丢失，也就是说假如我在16ms内发了3次数据，那么就会造成2次数据被丢失，不过一般这个问题不大，发送数据在现实场景中频率应该不会太高。</p><h4>postMessage发送和接收数据</h4><textarea class="lang-js" edit=off >
+    target.postMessage(data, '*'); //向target目标窗口发送数据
+    window.addEventListener('message', function(e){ //通过window绑定监听事件
+        //通过e.data获取发送的数据
+    });
+</textarea><p class="xinfo">这个方式唯一的缺点是ie6-7不支持</p><p>谷歌搜索<a class="glink" href="https://www.google.com/search?q=postMessage" target="_blank">postMessage</a><br/></p><h3>JSONP无限制跨域数据交互</h3><p>ajax的盛行和开放平台的流行，导致了越来越多的跨域场景的出现，自由灵活的第三方开放接口使得jsonp技术大放异彩。</p><h4>实现原理</h4><p>以动态添加script标签的方法发起请求，并且响应之后执行回调函数处理数据，提交的数据可以跟在src地址的后面。</p><p>用jsonp可以实现无限制的跨域数据请求和提交，但缺点就是安全性和提交数据只能使用get方式，而且对错误的处理不是很好，不能处理服务器响应状态。</p><h4>一个简单的封装示例</h4><textarea class="lang-js" edit=off >
+function getScript(url, callback, data, charset){
+    var script = document.createElement('script')，
+        head = document.getElementsByTagName('head')[0];
+    if(data)url += '?' + data;
+    script.src = url;
+    charset && (script.charset = charset);
+    head.appendChild(script);
+    if(script.readyState){
+        script.onreadystatechange = function(){
+            if(script.readyState == 'loaded' || script.readyState == 'complete'){
+                callback && callback();
+                head.removeChild(script);
+            }
+        };
+    }else{
+        script.onload = function(){
+            callback && callback();
+            head.removeChild(script);
+        };
+    }
+}
+</textarea><p>谷歌搜索<a class="glink" href="https://www.google.com/search?q=JSONP" target="_blank">JSONP</a><br/></p><h3>AJXA新特性跨域</h3><p class="xinfo">在一些新的浏览器当中ajax原生支持跨域，主要的知识点在于请求头的配置问题，其他的和原来的差不多。</p><p>扩展阅读<a class="mlink" href="http://newhtml.net/using-cors/" target="_blank">利用CORS实现跨域请求</a><br/>扩展阅读<a class="mlink" href="https://developer.mozilla.org/en-US/docs/HTTP/Access_control_CORS" target="_blank">mozilla CORS</a><br/>谷歌搜索<a class="glink" href="https://www.google.com/search?q=ajax跨域 html5" target="_blank">ajax跨域 html5</a><br/></p><h3>服务器代理跨域</h3><p>通过服务器作为代理来获取其他域的数据到本地，这样就间接实现了跨域。</p><h3>通过flash代理跨域</h3><p>...</p><h3>结语</h3><p>从上面的实现上来看，其实跨域的方案还是蛮多的，而各种方案各有优势和特点，同时可以互相配合使用。</p></div>
+	</section>
+</div></body></html>

@@ -1,0 +1,40 @@
+<!doctype html><html><head><meta charset="utf-8"/><title>HTML5学习之classList</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+	<section id="main">
+		<h2 class="title">HTML5学习之classList</h2>
+		<div class="post"><h3>前言</h3><p>classList是html5中新增加的API，扩展节点的class操作。</p><h3>classList的API</h3><p>通过Element.classList来获取classList对象</p><h4>属性</h4><ul><li>length 返回className的个数</li></ul><h4>方法</h4><ul><li>add(className) 添加一个className</li><li>contains(className) 判断是否包含className</li><li>item(index) 返回指定索引的className，从0开始，找不到返回null</li><li>remove(className) 移除指定的className</li><li>toggle(className) 切换指定的className</li></ul><h3>演示代码</h3><textarea class="lang-html">
+<!doctype html>
+<style>
+.red{color:red;}
+</style>
+<div id="testbox">testbox</div>
+<button id="add">add</button> 
+<button id="remove">remove</button> 
+<button id="toggle">toggle</button> 
+<button id="contains">contains</button> 
+<button id="item">item</button> 
+
+<script>
+var classList = $('testbox').classList;
+$('add').onclick = function(){
+    classList.add('red');
+};
+$('remove').onclick = function(){
+    classList.remove('red');
+};
+$('toggle').onclick= function(){
+   classList.toggle('red');
+};
+$('contains').onclick= function(){
+   alert(classList.contains('red')?'包含red':'不包含red');
+};
+$('item').onclick= function(){
+   alert('item(0)=='+ (classList.item(0)===null?'null':classList.item(0)));
+};
+
+function $(id){
+    return document.getElementById(id);
+}
+</script>
+</textarea><h3>兼容性</h3><p>除了IE6-9之外的主流浏览器都能用。</p><h3>结语</h3><p>真心没啥好说的，只能说明未来的前端开发将变得复杂而又简单，API越来越多，也越来越容易用。</p></div>
+	</section>
+</div></body></html>

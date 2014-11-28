@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"/><title>CSS实现兼容性的渐变背景</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+	<section id="main">
+		<h2 class="title">CSS实现兼容性的渐变背景</h2>
+		<div class="post"><h3>前言</h3><p>一个渐变的css效果，记录一下以备不时之需。</p><h3>代码</h3><textarea class="lang-html">
+<style>
+.gradient{
+    width:300px;
+    height:150px;
+    filter:alpha(opacity=100 finishopacity=50 style=1 startx=0,starty=0,finishx=0,finishy=150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=red,endcolorstr=blue,gradientType=0);
+    -ms-filter:alpha(opacity=100 finishopacity=50 style=1 startx=0,starty=0,finishx=0,finishy=150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=red,endcolorstr=blue,gradientType=0);/*IE8*/    
+    background:red; /* 一些不支持背景渐变的浏览器 */  
+    background:-moz-linear-gradient(top, red, rgba(0, 0, 255, 0.5));  
+    background:-webkit-gradient(linear, 0 0, 0 bottom, from(#ff0000), to(rgba(0, 0, 255, 0.5)));  
+    background:-o-linear-gradient(top, red, rgba(0, 0, 255, 0.5)); 
+}
+</style>
+<div class="gradient"></div>
+</textarea><h3>结语</h3><p>由于css技术发展，更新很快，故不做深究。</p><p>扩展阅读<a class="mlink" href="http://www.zhangxinxu.com/wordpress/?p=743" target="_blank">CSS实现兼容性的渐变背景(gradient)效果</a><br/></p></div>
+	</section>
+</div></body></html>

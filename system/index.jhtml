@@ -1,0 +1,42 @@
+<?
+$inc('config.jjs');
+$inc('index.jjs');
+?>
+
+<!-- debug info -->
+<style>
+body{margin:0;padding:0;}
+#system{
+    position: fixed;
+    bottom: 0px;
+    width:100%;
+    border-top: 1px solid #666;
+    background: #eee;
+    color: #666;
+    font-size:14px;
+}
+#system li{list-style:none;}
+#system .box{padding:3px;}
+#system ul{margin:0;padding:0;}
+#systembar{height:24px;font-size:12px;font-weight:normal;}
+#systembar li{padding:3px 6px;float:left;}
+#systembar li:hover{cursor:pointer;color:red;}
+#system ol{margin:0;padding:0;max-height:228px;overflow-y:scroll;}
+#system ol li{margin:3px 0;padding:3px 6px;border:1px dotted #333;background:#ddd;}
+</style>
+<div id="system" >
+    <div class="box">
+        
+        <ul id="systembar">
+            <li>统计</li>
+            <li><a href="?rebuild=1">重构页面</a></li>
+            <li><a href="?">更新日志</a></li>
+            <li><a href="?view=index">查看首页</a></li>
+            <li><a href="?nocatch=1">预览最后修改的日志</a></li>
+            <li onclick="this.parentNode.parentNode.parentNode.style.display='none'">关闭窗口</li>
+        </ul>
+        
+        <ol>{$debug.message}</ol>
+        <span>耗时：{$debug.takentime}ms</span>
+    </div>
+</div>

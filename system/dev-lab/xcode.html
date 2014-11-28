@@ -1,0 +1,76 @@
+<meta charset="utf-8"/>
+<script>
+$xcode = function(text){
+    var reg = function(reg){
+        var retStr = [];
+        for(var i = 0; i < reg.length; i++){
+            retStr.push(reg[i].source);
+        }
+        return new RegExp(retStr.join('|'), 'gm');
+    }([
+        //code:
+        /(?:^code\.(html|js|text|css)(?:\[(.+)\])?$([\w\W]+?)(?:^\.$))/, //code_lang, code_attr, code_content
+        //link:
+        /(?:^([grmx]link)(?:\[([^\]]+)\])(.+)$)/, //link_type, link_keyword, link_href
+        //img:
+        /(?:^([rxz]img)(?:\[([^\]]*)\])(.+)$)/, //img_type, img_keyword, img_href
+        //info:
+        /(?:^([xr]info)\s(.+)$)/, //info_type, info_content
+        //dot:
+        /(?:^(\.+)$)/ //dots
+    ]);
+    
+    //var codeRegexp = /(?:^code\.(html|js|text|css)$([\w\W]+?)(?:^\.$))/;
+    //var linkRegexp = //
+    //console.info(reg.source);
+   
+
+    return text.replace(reg, function(match, code_lang, code_attr, code_content, link_type, link_keyword, link_href, img_type, img_keyword, img_src, info_type, info_content, dots){
+        switch(!1){
+            case !code_lang:
+                if(code_lang == 'text'){
+                    ;;;console.info('<pre class="xcode">'+ code_content +'</pre>');
+                    return '<pre class="xcode">'+ code_content +'</pre>';
+                }else{
+                    code_attr = code_attr ? (' '+ code_attr +' ') : '';
+                    ;;;console.info('<textarea class="lang-'+ code_lang +'"'+ code_attr +'>'+ code_content +'</textarea>');
+                    return '<textarea class="lang-'+ code_lang +'"'+ code_attr +'>'+ code_content +'</textarea>';
+                }
+            case !link_type:
+                ;;;console.info('<a class="'+ link_type +'" href="'+ link_href +'"'+ (link_type == 'xlink' ? '' : ' target="_blank"') +'>'+ link_keyword +'</a>');
+                return '<a class="'+ link_type +'" href="'+ link_href +'"'+ (link_type == 'xlink' ? '' : ' target="_blank"') +'>'+ link_keyword +'</a>';
+            case !img_type:
+                ;;;console.info('<p class="'+ img_type +'"><img src="'+ img_src +'"/>'+ (img_keyword ? '<em>'+ img_keyword +'</em>' : '') +'\n</p>');
+                return '<p class="'+ img_type +'"><img src="'+ img_src +'"/>'+ (img_keyword ? '<em>'+ img_keyword +'</em>' : '') +'\n</p>';
+            case !info_type:
+                ;;;console.info('<p class="'+ info_type +'">'+ info_content +'\n</p>');
+                return '<p class="'+ info_type +'">'+ info_content +'\n</p>';
+            case !dots:
+                ;;;console.info(dots.replace(/./g, '<br/>'));
+                return dots.replace(/./g, '<br/>');
+        }
+    
+    });;
+    
+    
+};
+function str(){/*
+code.text
+var name =12;
+ .
+xinfo ######
+.
+xinfo #####
+
+ximg[sasas]http://abc.com
+code.js[edit=off skine=default]
+var a = 'abcd';
+.
+
+glink[jdj]
+xlink[xxx]jskjl
+glink[xxx]jskjl
+
+*/}
+$xcode(str.toString().match(/\/\*([\s\S]+?)\*\//)[1]);
+</script>

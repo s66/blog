@@ -1,0 +1,47 @@
+const //常量
+    $CATEGORY = 分类信息
+    $USERPAGE = 自定义页面
+    TEMPLATE_PATH = 模板地址
+    
+    
+cache //缓存
+    postinfoCache //日志信息
+    navHtmlCache //模板nav
+data
+    postinfoData //日志源数据
+    userpageData //自定义页面
+func //函数，变量
+    _fs = 文件操作
+    clearBlank = 清除空白
+    debugWriteText = 调式写文件
+    tpath = 返回模板路径
+    rebuild = 是否重构页面
+    categoryFlag = 需要更新的分类标志
+模板变量
+    $postTitle = 日志标题
+    $postData = 日志内容
+    $mainTemplate = 页面主模块
+    $takenTime = 页面生成花费时间
+    $debugFiles = 生成的页面路径信息
+功能：
+    1. 生成页面
+    2. 重构页面
+    
+    生成页面
+        + 加载配置
+        + 扫描md目录生成postinfoData
+        + 加载cache
+        + 对比postinfoData和postinfoCache生成日志更新列表
+        + 加载模板
+        + 生成日志页
+        + 更新列表缓存
+        + 生成列表导航页
+        + 生成首页
+        + 输出debug结果
+    重构页面
+        + 读取rebuild参数
+        + 重置cache resetCache
+        + 遍历$USERPAGE
+        + 生成navHtmlCache
+        + 生成userpageData页面
+        + 生成页面

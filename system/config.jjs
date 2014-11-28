@@ -1,0 +1,17 @@
+<?
+CONFIG = {
+    Category: [ //日志分类
+        {id: 1, text: '前端开发'},
+        {id: 2, text: '架构优化'},
+		{id: 5, text: '探索思考'},
+        {id: 4, text: '工具应用'},
+		{id: 6, text: '网络知识'},
+        {id: 7, text: '懒得分类'}
+    ],
+    userpages: [ //自定义页面
+        //{id: 'tags', text: 'Tags'},
+        {id: 'about', text: 'About'}
+    ],
+    codepage: 936 //md文件所用的编码
+};
+?>

@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8"/><title>RGB，HEX颜色转换算法</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+	<section id="main">
+		<h2 class="title">RGB，HEX颜色转换算法</h2>
+		<div class="post"><h3>RGB，HEX颜色互转代码</h3><textarea class="lang-js">
+//#10ff00
+alert(rgb2hex('rgb(16, 255, 0)'));
+//rgb(16, 255, 0)
+alert(hex2rgb('#10ff00'));
+
+function rgb2hex(code){
+    var result = '#';
+    code = code.match(/\d+/g);
+    for(var i = 0; i < 3; i++){
+        result += ('0'+(+code[i]).toString(16)).slice(-2);
+    }
+    return result;
+}
+
+function hex2rgb(code){
+    var result = [];
+    code = code.slice(1).match(/../g);
+    for(var i = 0; i < 3; i++){
+        result.push(parseInt(code[i], 16));
+    }
+    return 'rgb('+result.join(', ')+')';
+}
+</textarea></div>
+	</section>
+</div></body></html>
