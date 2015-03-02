@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8"/><title>递归法实现子域解析</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+	<section id="main">
+		<h2 class="title">递归法实现子域解析</h2>
+		<div class="post"><p>在操作cookies的时候，子域的cookies会覆盖父域，假如是多级子域的话，cookies的值将从顶层父域一层层的读取，这里写了一个实现层层父域解析的算法。</p><h3>逐层解析父域算法</h3><textarea class="lang-js">
+
+function parseDomain(childDomain, parentDomain){ //父域解析函数,从顶层一层层读取cookies
+    if(childDomain){
+        parseDomain(childDomain.replace(/(^|\.)[^.]+$/, function(match){
+            var nowDomain = match + parentDomain;
+            if(parentDomain){
+                if(nowDomain.indexOf('.') != 0){ //本域额外读取以点开头在加本域的cookie
+                    alert('.'+nowDomain);
+                }
+                alert(nowDomain);
+
+            }
+            parentDomain = nowDomain;
+            return '';
+        }), parentDomain);
+
+    }
+}
+
+
+parseDomain('www.126.com', '');
+parseDomain('126.com', '');
+parseDomain('a.b.c.d.com', '');
+</textarea></div>
+	</section>
+</div></body></html>
