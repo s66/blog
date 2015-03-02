@@ -36,7 +36,7 @@ Z(function(){
             sidebarHeight;
 		return{
 			init: function(){
-				Z('body').append('<div id="sidebar"><ul></ul><a class="back" href="javascript:location=\'/\'">Back</a></div>');
+				Z('body').append('<div id="sidebar"><ul></ul><a class="back" href="javascript:history.go(-1);void(0)">Back</a></div>');
 				sidebar = Z('#sidebar');
 				post = Z('#post');
 				h3wrap = sidebar.find('ul');
