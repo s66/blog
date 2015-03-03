@@ -1,0 +1,21 @@
+小脚本之遍历文件夹
+
+
+###前言
+有时候我们需要对文件夹下的文件进行批量操作，比如重命名，替换指定内容，查找指定内容等，手动一个个改固然很麻烦，那么我们通过一些小脚本来简化工作。
+###脚本
+code.js
+function eachFiles(){
+	var fso = new ActiveXObject('Scripting.FileSystemObject');
+	var fi = fso.GetFolder('.'); //当前目录
+	var fenum = new Enumerator(fi.files);
+	while(!fenum.atEnd()){
+		var fileItem = fenum.item();
+        //可以在这里对file进行操作
+        fileItem.name += '.bak'; //给所以文件增加.bak扩展名
+        fenum.moveNext()
+	}
+}
+.
+###API
+详见Script56.chm

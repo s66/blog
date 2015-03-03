@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset="utf-8"/><title>小脚本之遍历文件夹</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+	<section id="main">
+		<h2 class="title">小脚本之遍历文件夹</h2>
+		<div class="post"><h3>前言</h3><p>有时候我们需要对文件夹下的文件进行批量操作，比如重命名，替换指定内容，查找指定内容等，手动一个个改固然很麻烦，那么我们通过一些小脚本来简化工作。</p><h3>脚本</h3><textarea class="lang-js">
+function eachFiles(){
+    var fso = new ActiveXObject('Scripting.FileSystemObject');
+    var fi = fso.GetFolder('.'); //当前目录
+    var fenum = new Enumerator(fi.files);
+    while(!fenum.atEnd()){
+        var fileItem = fenum.item();
+        //可以在这里对file进行操作
+        fileItem.name += '.bak'; //给所以文件增加.bak扩展名
+        fenum.moveNext()
+    }
+}
+</textarea><h3>API</h3><p>详见Script56.chm</p></div>
+	</section>
+</div></body></html>
