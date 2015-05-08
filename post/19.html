@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset="utf-8"/><title>数组去重问题引发的思考</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+<!doctype html><html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/><title>数组去重问题引发的思考</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
 	<section id="main">
 		<h2 class="title">数组去重问题引发的思考</h2>
 		<div class="post"><h3>前言</h3><p>数组去重是一个简单而经典的问题，在深入思考这个问题的时候，我们往往会发现一些有趣的东西，下面先写出数组去重的几种实现方式。</p><h3>行云流水版</h3><h4>实现原理</h4><p class="xinfo">创建一个空数组B，从当前数组A中取一项，跟新数组B中的项进行比较，假如找到相等的（没有找到，则将当前项加入到B中），那么继续取下一项进行比较，直到所有项都完成比较。</p><ol><li>创建空数组B</li><li>遍历原始数组A</li><li>遍历B数组所有项与当前项进行比较</li><li>根据结果判断是否push到B中</li><li>返回去重结果数组B</li></ol><textarea class="lang-js">

@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset="utf-8"/><title>JS跨域的各种解决方案及实现</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+<!doctype html><html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/><title>JS跨域的各种解决方案及实现</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
 	<section id="main">
 		<h2 class="title">JS跨域的各种解决方案及实现</h2>
 		<div class="post"><h3>前言</h3><p>跨域问题很经典，也很常见，了解跨域问题，在现实的应用开发中才能做到心中有数。</p><h3>跨域问题分类</h3><ol><li>跨域的dom操作（iframe操作）</li><li>跨域提交和接收数据</li></ol><p>下面将以各种经典的例子来讨论方案和实现方式</p><h3>iframe自适应高度</h3><p>通过iframe加载其他域的页面，iframe的高度自适应于被加载的页面</p><h4>实现原理</h4><p class="xinfo">利用父页面操作子页面的location.hash无跨域限制的方式实现高度传递</p><ol><li>主页面main1.html通过iframe加载跨域页面autoheight.html</li><li>跨域页面autoheight通过iframe加载代理页面proxy.html（与主页面同域）</li><li>监测autoheight的高度，当高度改变时将高度信息传给proxy的hash值</li><li>检测proxy的hash值是否改变，当值改变时则调用主页面的相关函数（因为proxy能访问main1）</li></ol><h4>代码演示</h4><textarea class="lang-html">

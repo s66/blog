@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset="utf-8"/><title>JS编码函数简析</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+<!doctype html><html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/><title>JS编码函数简析</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
 	<section id="main">
 		<h2 class="title">JS编码函数简析</h2>
 		<div class="post"><h3>前言</h3><p>为解决不同编码之间传递数据出现乱码问题，我们常常需要对数据进行一定的编码，JS常见的编码函数有</p><ul><li>escape</li><li>encodeURI</li><li>encodeURIComponent</li></ul><h3>区别</h3><ul><li>escape 不会编码 @*/+</li><li>encodeURI 不会编码 ~!@#$&amp;*()=:/,;?+'</li><li>encodeURIComponent 不会编码 ~!*()'</li></ul><p class="xinfo">escape属于bom级别的api，一般情况下使用encodeURIComponent来编码</p></div>

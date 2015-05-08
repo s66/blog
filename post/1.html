@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset="utf-8"/><title>一个静态化博客系统的实现</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+<!doctype html><html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/><title>一个静态化博客系统的实现</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
 	<section id="main">
 		<h2 class="title">一个静态化博客系统的实现</h2>
 		<div class="post"><h3>前言</h3><p>为方便书写和部署博客系统，本次采用JS调用Markdown驱动HTML模版生成HTML文件，生成的页面纯静态html，无需动态环境支持。</p><h4>流程图</h4><p class="rimg"><img src="/imgs/blog_design.jpg"/><em>博客设计流程图</em></p><h3>html模版的设计</h3><p>html模版分为：layout（布局），list（列表页），page（日志页）</p><p class="zimg"><img src="/imgs/20131011151644.jpg"/><em>本博客使用的模板例子</em></p><ol><li>about.html 关于页面模板</li><li>header.html 头部模板</li><li>layout.html 布局模板</li><li>list.html 导航页模板</li><li>nav.html 左侧导航模板</li><li>post.html 日志页模板</li></ol><p class="xinfo">可以根据情况设置更多模板</p><h4>layout模板</h4><textarea class="lang-html" edit=off >
