@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/><title>异步初始化模型</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+	<section id="main">
+		<h2 class="title">异步初始化模型</h2>
+		<div class="post"><p>异步,初始化</p><h3>代码</h3><p>关键字：异步，执行一次</p><textarea class="lang-js" edit=off >
+function asynTask(fn){
+    var
+    result = {
+        success: false,
+        lock: false
+    };
+    return function(){
+        if(!result.lock){
+            result.lock = true;
+            var args = [].slice.call(arguments, 0);
+            args.unshift(result);
+            fn.apply(null, args);
+        }
+    };
+}
+</textarea></div>
+	</section>
+</div></body></html>
