@@ -1,9 +1,0 @@
-<?
-function jj(){
- hh();
- $push(222222)
-
-}
-Global.jj = jj;
-?>
-ooooo

@@ -1,12 +1,11 @@
 <nav id="nav">
 	<ul>
 		<li>
-			<a href="index.html">Index</a>
 			<ul>
 				<?
 					var len = CONFIG.Category.length - 1;
 					CONFIG.Category.forEach(function(cate, i){
-						$push('<li>'+ (i==0?'[':'') +'<a href="'+ cate.id +'.html">'+ cate.text +'</a>'+ (i==len?']':',') +'</li>');
+						$push('<li>'+ (i==0?'':'') +'<a href="'+ cate.id +'.html">'+ cate.text +'</a>'+ (i==len?'':'') +'</li>');
 					});
 				?>
 			</ul>

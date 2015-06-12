@@ -1,0 +1,28 @@
+异步初始化模型
+20150612.
+###前言
+某些异步交互，比如点击一个按钮，服务器未响应前，用户可能不断的点击按钮，那么我们就必须对这些操作进行过滤，当返回结果后，根据结果执行解锁操作。
+###代码
+code.js[edit=off]
+function asyncFn(fn){
+    var
+    result = {
+        success: false,
+        lock: false
+    };
+    return function(){
+        if(!result.lock){
+            result.lock = true;
+            var args = [].slice.call(arguments, 0);
+            args.unshift(result);
+            fn.apply(null, args);
+        }
+    };
+}
+var doIt = asyncFn(function(result){
+    //接收响应，执行操作
+});
+button.onclick = function(){
+    doIt();
+};
+.

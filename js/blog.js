@@ -13,9 +13,91 @@ if(Z.browser.ie && parseInt(Z.browser.ie) < 9){//ie6-8?html5?
 
 Z.highlight.init({});
 
+Z(function(){ //增加阅读模式工具栏
+    if(!Z('#post'))return;
+    var toolbar = {
+        init: function(){
+            readData();
+            Z('body').append('<div id="toobar"><div title="阅读模式" class="read-toggle">Aa</div></div>');
+            Z('body').append('<div id="toobar-cc">\
+                <div class="font-size"><button class="a1" style="border-left:0">╋</button><button class="a2">━</button></div>\
+    <div class="style">\
+    <button class="light" style="border-left:0">亮</button><button class="dark">暗</button><button class="sepia">褐</button>\
+    </div>\
+</div>');
+            Z('#toobar').click(function(e){
+                Z('#toobar-cc').show();
+                e.stopPropagation();
+            });
+            Z('#toobar-cc').click(function(e){
+                e.stopPropagation();
+                var tg = Z(e.target);
+                
+                if(tg.cls('a1')){
+                    var s = Z('#main').cls().substr(1);
+                    if(s){
+                        s = Math.min(5, ++s);
+                    }else{
+                        s = 4;
+                    }
+                    Z('#main').cls('=f'+s);
+                    saveData();
+                }else if(tg.cls('a2')){
+                    var s = Z('#main').cls().substr(1);
+                    if(s){
+                        s = Math.max(1, --s);
+                    }else{
+                        s = 2;
+                    }
+                    Z('#main').cls('=f'+s);
+                    saveData();
+                }else if(/dark|light|sepia/.test(tg.cls())){
+                    Z('body').cls('='+tg.cls());
+                    saveData();
+                }
+            });
+            Z(document).click(function(e){
+                Z('#toobar-cc').hide();
+                
+            });
+        }
+        
+        
+    };
+    
+    
+    toolbar.init();
+    
+    function readData(){
+        
+        if(!!window.localStorage){
+            if(localStorage.fontSize){
+                Z('#main').cls('='+localStorage.fontSize);
+            }
+            if(localStorage.styleColor){
+                Z('body').cls('='+localStorage.styleColor);
+            }
+            
+        }
+    }
+    
+    function saveData(){
+        if(!!window.localStorage){
+            
+            if(Z('#main').cls()){
+                localStorage.fontSize = Z('#main').cls();
+            }
+            if(Z('body').cls()){
+                localStorage.styleColor = Z('body').cls()
+            }
 
+        }
+    }
+    
+});
 
 Z(function(){
+    return;
 /*
 	if(Z.browser.ie && parseInt(Z.browser.ie) < 8){//?
 		Z('a').attr('hideFocus', 1);
@@ -23,16 +105,16 @@ Z(function(){
 */
 	if(!Z('#post'))return;
 	var Sidebar = function(){
-		var followSpace = 8,//
-            isShow = true, //???
-            isFollow = false, //??
-            reFollowDelay,//??
+		var followSpace = 8,
+            isShow = true,
+            isFollow = false,
+            reFollowDelay,
             sidebar,
             post,
-            h3wrap,//��h3?
+            h3wrap,
             h3,
             sidebarWidth,
-            focusIndex = -1,//??
+            focusIndex = -1,
             sidebarHeight;
 		return{
 			init: function(){

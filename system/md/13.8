@@ -1,0 +1,61 @@
+CSS去除链接虚线框
+20150612.
+###代码实现
+code.html
+<!doctype html>
+<style>
+a:focus{outline:none;}	
+</style>
+<a href="javascript:;">前端开发</a>
+<script>
+var version = navigator.userAgent.toLowerCase().match(/msie ([\d.]+)/);
+if(version && parseInt(version[1]) < 8){ //判断浏览器版本
+	var a = document.getElementsByTagName('a'), i = a.length;
+	while(i--){
+		a[i].setAttribute('hideFocus', 1); //设置hideFocus为true
+	}
+}
+</script>
+.
+xinfo 这里的JS代码必须在domready触发后执行，后期添加的链接虚线还会存在。
+
+###实现原理
++ 使用css伪类:foucs
++ IE6-7使用私有属性hidefocus
+
+###糟糕的实现
++ 滥用CSS表达式
++ 使用失去焦点的方式
+
+####示例代码
+code.html
+<!doctype html>
+<style>
+a{blr:expression(this.onFocus=this.blur());}/*支持IE*/
+</style>
+<a href="javascript:;">前端开发</a>
+<script>
+var a = document.getElementsByTagName('a'), i = a.length;
+while(i--){
+	a[i].onfocus = function(){
+		this.blur();
+	};
+}
+</script>
+.
+xinfo 上述代码存在性能问题，css表达式将不断的被触发。 
+
+###一个完美的方案
+
+code.html
+<!doctype html>
+<style>
+a:focus{outline:none;}
+a{*zoom:expression(this.style.zoom=1,this.hideFocus=true);}
+</style>
+<a href="javascript:;">前端开发</a>
+<button onclick="this.nextSibling.innerHTML+='<a href=javascript:;>新添加的链接</a><br>'">添加新链接</button><div></div>
+.
+
+xinfo 完美监控新添加的a节点，通过this.style.zoom = 1移除css表达式
+

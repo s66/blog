@@ -1,0 +1,8 @@
+IE6背景图片闪烁解决方案
+20150612.
+###CSS代码
+code.css[edit=off]
+body{
+	_zoom:expression(this.style.zoom=1,document.execCommand("BackgroundImageCache",false,true));
+}
+.

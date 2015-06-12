@@ -1,7 +1,7 @@
 <!doctype html><html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/><title>JS实现简单的拖放原型</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
 	<section id="main">
 		<h2 class="title">JS实现简单的拖放原型</h2>
-		<div class="post"><h3>前言</h3><p>层拖放场景经常遇到，此次尝试层拖放原型，以最简单的原生代码实现拖放效果！</p><h3>代码实现</h3><h4>一个简单的原型代码</h4><textarea class="lang-html">
+		<div class="post"><h3>前言</h3><p>层拖放场景经常遇到，以最简单的原生代码实现拖放效果！</p><h3>代码实现</h3><h4>一个简单的原型代码</h4><textarea class="lang-html">
 <!doctype html>
 <style>
 #drag{position:absolute;left:100px;top:100px;width:100px;height:100px;background:#666;}
@@ -34,7 +34,7 @@
         window.event && window.event.srcElement.releaseCapture();
     };
 </script>
-</textarea><p>写到这里，一个最简单的拖放模型就已经出来了，通过给document绑定mousemove事件，通过不断获取鼠标当前位置并且通过一定的计算之后更新到层style属性的left和top上，不过这个模型在实际应用中还会存在很多问题。</p><h3>完善拖放模型</h3><h4>标准绑定鼠标事件</h4><p>上面的代码都是通过on直接绑定事件的，在实际应用过程中会产生大量的问题，所以这里需要进行适当处理。</p><textarea class="lang-js" edit=off >
+</textarea><p>基本原理，给document绑定mousemove事件，通过计算鼠标位置更新层style属性的left和top值。</p><h3>完善拖放模型</h3><h4>标准绑定鼠标事件</h4><p>通过on直接绑定事件有很大局限性，不易扩展。</p><textarea class="lang-js" edit=off >
     dom.attachEvent('on' + eventType, callback); //ie添加事件
     dom.addEventListener(eventType, callback, false); //标准添加事件
     dom.detachEvent('on' + eventType, callback);//ie删除鼠标事件

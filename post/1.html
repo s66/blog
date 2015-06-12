@@ -1,6 +1,88 @@
-<!doctype html><html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/><title>/ 鏍圭洰褰?</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+<!doctype html><html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/><title>一个静态化博客系统的实现</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
 	<section id="main">
-		<h2 class="title">/ 鏍圭洰褰?</h2>
-		<div class="post"><p>./ 褰撳墠鐩綍../ 涓婁竴灞傜洰褰?鐩綍浠?缁撴潫</p></div>
+		<h2 class="title">一个静态化博客系统的实现</h2>
+		<div class="post"><h3>前言</h3><p>为方便书写和部署，博客采用JS使用Markdown调用模板文件生成HTML文件。</p><h3>设计流程图</h3><p class="rimg"><img src="/imgs/blog_design.jpg"/><em>博客设计流程图</em></p><h3>html模版</h3><p>html模版分为：layout（布局），list（列表页），page（日志页）</p><p class="zimg"><img src="/imgs/20131011151644.jpg"/><em>主要模板文件</em></p><ol><li>header.html 头部</li><li>nav.html 左侧导航</li><li>layout.html 布局</li><li>list.html 列表页</li><li>post.html 日志页</li><li>about.html 关于页</li></ol><p class="xinfo">可以通过修改模板来控制生成的页面</p><h3>扩展的markdown</h3><p>扩展markdown语法，添加更多格式的支持</p><textarea class="lang-html" edit=off >
+----
+例如
+    <!-- 语法高亮 -->
+    code.html[edit=off]
+    <div>
+        <span>test</span>
+    </div>
+    .
+    转成
+    < textarea class="lang-html" edit=off>
+    <div>
+        <span>test</span>
+    </div></ textarea>
+----
+例如：
+    <!-- 带样式的a链接 -->
+    mlink[一个ie6的bug]href
+    转成
+    <a class="mlink" href="href" target="_blank">一个ie6的bug</a>
+----
+例如：
+    <!-- 带样式的图片标签 -->
+    zimg[一张靓图]11234.jpg
+    转成
+    <p class="zimg">
+        <img src="11234.jpg"/>
+        <em>一张靓图</em>
+    </p>
+----
+例如：
+    <!-- 带样式的文本 -->
+    xinfo 字符串解说的好啊
+    转成
+    <p class="xinfo">字符串解说的好啊</p>
+</textarea><h3>系统相关数据</h3><textarea class="lang-html" edit=off >
+const //常量
+    $CATEGORY = 分类信息
+    $USERPAGE = 自定义页面
+    TEMPLATE_PATH = 模板地址
+
+cache //缓存
+    postinfoCache //日志信息
+    navHtmlCache //模板nav
+data
+    postinfoData //日志源数据
+    userpageData //自定义页面
+func //函数，变量
+    _fs = 文件操作
+    clearBlank = 清除空白
+    debugWriteText = 调式写文件
+    tpath = 返回模板路径
+    rebuild = 是否重构页面
+    categoryFlag = 需要更新的分类标志
+模板变量
+    $postTitle = 日志标题
+    $postData = 日志内容
+    $mainTemplate = 页面主模块
+    $takenTime = 页面生成花费时间
+    $debugFiles = 生成的页面路径信息
+功能：
+    1. 生成页面
+    2. 重构页面
+
+    生成页面
+        + 加载配置
+        + 扫描md目录生成postinfoData
+        + 加载cache
+        + 对比postinfoData和postinfoCache生成日志更新列表
+        + 加载模板
+        + 生成日志页
+        + 更新列表缓存
+        + 生成列表导航页
+        + 生成首页
+        + 输出debug结果
+    重构页面
+        + 读取rebuild参数
+        + 重置cache resetCache
+        + 遍历$USERPAGE
+        + 生成navHtmlCache
+        + 生成userpageData页面
+        + 生成页面
+</textarea></div>
 	</section>
 </div></body></html>

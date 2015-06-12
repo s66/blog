@@ -2,7 +2,7 @@
 
 !function($GET){
 	
-	var debug = $require2('debug.js');
+	var debug = $require('debug.js');
 	var template = $require('template.js');
 	
 	var postIndexCache; //日志索引缓存
@@ -56,7 +56,7 @@
 		function getPostIndex(){
 			var list = [];
 			Fs.eachFiles($mappath('md'), function(file){
-				if(/^\d/.test(file.name)){ //以数字开头的文件
+				if(/^\d+\.\d+$/.test(file.name)){ //以数字开头的文件
 					list.push({
 						name: file.name,
 						lastmodified: +file.DateLastModified
@@ -98,6 +98,9 @@
 			var text = Fs.readText(path, 936).replace(/([^\n\r]+)\s+(?:,(\S+))?/, function(all, title, tags){ //获取标题
                 info.title = title; //标题
 				info.tags = tags ? tags.split(',') : []; //标签数据
+                return '';
+            }).replace(/^(\d{8})\.\s*/, function(match, time){
+                info.createtime = time;
                 return '';
             });
 			postIndexCache[name] = info;  //更新索引缓存
@@ -159,7 +162,8 @@
 			allList.push(postIndexCache[name]);
 		}
 		return allList.sort(function(a, b){ //根据修改时间降序
-			return a.lastmodified < b.lastmodified ? 1 : -1;
+			//return a.lastmodified < b.lastmodified ? 1 : -1;
+			return a.creattime < b.createtime ? 1 : -1;
 		});
 	}
 	

@@ -1,0 +1,116 @@
+一个静态化博客系统的实现
+20150612.
+###前言
+
+为方便书写和部署，博客采用JS使用Markdown调用模板文件生成HTML文件。
+
+###设计流程图
+
+rimg[博客设计流程图]/imgs/blog_design.jpg
+
+###html模版
+
+html模版分为：layout（布局），list（列表页），page（日志页）
+
+zimg[主要模板文件]/imgs/20131011151644.jpg
+
+1. header.html  头部
+1. nav.html     左侧导航
+1. layout.html  布局
+1. list.html    列表页
+1. post.html    日志页
+1. about.html   关于页
+
+xinfo 可以通过修改模板来控制生成的页面
+
+###扩展的markdown
+
+扩展markdown语法，添加更多格式的支持
+
+code.html[edit=off]
+----
+例如
+	<!-- 语法高亮 -->
+	code.html[edit=off]
+    <div>
+        <span>test</span>
+    </div>
+	.
+    转成
+	< textarea class="lang-html" edit=off>
+    <div>
+        <span>test</span>
+    </div></ textarea>
+----
+例如：
+	<!-- 带样式的a链接 -->
+    mlink[一个ie6的bug]href
+    转成
+    <a class="mlink" href="href" target="_blank">一个ie6的bug</a>
+----
+例如：
+	<!-- 带样式的图片标签 -->
+    zimg[一张靓图]11234.jpg
+    转成
+    <p class="zimg">
+        <img src="11234.jpg"/>
+        <em>一张靓图</em>
+    </p>
+----
+例如：
+	<!-- 带样式的文本 -->
+    xinfo 字符串解说的好啊
+    转成
+    <p class="xinfo">字符串解说的好啊</p>
+.
+
+###系统相关数据
+
+code.html[edit=off]
+const //常量
+    $CATEGORY = 分类信息
+    $USERPAGE = 自定义页面
+    TEMPLATE_PATH = 模板地址
+
+cache //缓存
+    postinfoCache //日志信息
+    navHtmlCache //模板nav
+data
+    postinfoData //日志源数据
+    userpageData //自定义页面
+func //函数，变量
+    _fs = 文件操作
+    clearBlank = 清除空白
+    debugWriteText = 调式写文件
+    tpath = 返回模板路径
+    rebuild = 是否重构页面
+    categoryFlag = 需要更新的分类标志
+模板变量
+    $postTitle = 日志标题
+    $postData = 日志内容
+    $mainTemplate = 页面主模块
+    $takenTime = 页面生成花费时间
+    $debugFiles = 生成的页面路径信息
+功能：
+    1. 生成页面
+    2. 重构页面
+    
+    生成页面
+        + 加载配置
+        + 扫描md目录生成postinfoData
+        + 加载cache
+        + 对比postinfoData和postinfoCache生成日志更新列表
+        + 加载模板
+        + 生成日志页
+        + 更新列表缓存
+        + 生成列表导航页
+        + 生成首页
+        + 输出debug结果
+    重构页面
+        + 读取rebuild参数
+        + 重置cache resetCache
+        + 遍历$USERPAGE
+        + 生成navHtmlCache
+        + 生成userpageData页面
+        + 生成页面
+.

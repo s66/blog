@@ -1,7 +1,7 @@
 <!doctype html><html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/><title>Web缓存基础简介</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
 	<section id="main">
 		<h2 class="title">Web缓存基础简介</h2>
-		<div class="post"><h3>前言</h3><p>正确的使用浏览器缓存能大大减少网络请求和数据传输，提高页面的响应速度。</p><h3>如何设置浏览器缓存</h3><ul><li>Expires</li><li>Cache-Control</li><li>Last-Modified</li><li>Etag</li></ul><p class="xinfo">Expires属于HTTP1.0协议，使用Cache-Control代替</p><p>我们可以设置请求响应头，比如：</p><pre class="xcode">
+		<div class="post"><h3>前言</h3><p>正确设置浏览器缓存能大大提高WEB应用性能。</p><h3>如何设置浏览器缓存</h3><ul><li>Expires</li><li>Cache-Control</li><li>Last-Modified</li><li>Etag</li></ul><p class="xinfo">Expires属于HTTP1.0协议，使用Cache-Control代替</p><p>我们可以设置请求响应头，比如：</p><pre class="xcode">
 Cache-Control: max-age=600
 Last-Modified: Tue, 16 Apr 2012 06:18:54 GMT
 ETag: "4280832337"

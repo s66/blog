@@ -71,7 +71,7 @@ function list(data){
 			var content = [];
 			if(listdata){
 				listdata.forEach(function(post, i){
-					content.push('<li><a href="post/'+post.id+'.html">'+post.title+'</a>'+ function(tags){
+					content.push('<li><a href="post/'+post.id+'.html" target="_blank">'+post.title+'</a>'+ function(tags){
 						return '';
 						if(tags.length){
 							var html = [];
@@ -82,7 +82,7 @@ function list(data){
 						}else{
 							return'';
 						}
-					}(post.tags)+'<span>'+ formatDate(post.lastmodified) +'</span></li>');
+					}(post.tags)+'<span>'+ formatDate(post.createtime) +'</span></li>');
 				});
 				
 				
@@ -93,6 +93,7 @@ function list(data){
 			return content.join('');
 			
 			function formatDate(ms){
+                return ms.replace(/(\d\d\d\d)(\d\d)/, '$1-$2-');
 				var d = new Date(ms);
 				return [d.getFullYear(), d.getMonth()+1, d.getDate()].join('-').replace(/-(\d)\b/g, '-0$1');
 			}

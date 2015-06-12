@@ -1,7 +1,7 @@
-<!doctype html><html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/><title>JS完美计算字符串字节数</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+<!doctype html><html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/><title>JS计算字符串字节数</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
 	<section id="main">
-		<h2 class="title">JS完美计算字符串字节数</h2>
-		<div class="post"><p>很多场合会用到获取字符串字节数的情况，比如双字节和单字节字符的显示宽度不同，有时候为了文字截取，必须计算字符串的字节数。</p><h3>简单正则实现</h3><textarea class="lang-js">
+		<h2 class="title">JS计算字符串字节数</h2>
+		<div class="post"><p>很多场合会用到获取字符串字节数的情况，比如双字节和单字节字符的显示宽度不同，有时候为了文字截取，必须计算字符串的字节数。</p><h3>正则实现</h3><textarea class="lang-js">
 function getByte(str){ //替换非ascii码的字符为..
     return str.replace(/[^\x00-\x7e]/g, '..').length;
 }
