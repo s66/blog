@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/><title>form表单设计的错误</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+	<section id="main">
+		<h2 class="title">form表单设计的错误</h2>
+		<div class="post"><h3>前言</h3><p>form表单默认属性方法和表单字段命名的冲突，实在是让人抓狂的坑。</p><h3>演示</h3><textarea class="lang-html">
+<form action="" method="post" id="form">
+    <input type="submit" id="submit"/>
+    <input type="text" name="id"/>
+</form>
+<button id="post">提交查询</button>
+<script>
+$("post").onclick = function(){
+    alert($("form").id); //id指向input元素，而不在是属性"form"
+    alert($("form").getAttribute('id')); //只能如此获取id
+    $("form").submit(); //submit方法同样被覆盖，所以这里报错
+};
+function $(id){return document.getElementById(id)}
+</script>
+</textarea><p class="xinfo">表单元素会覆盖同名form默认的属性和方法。</p><h3>最后</h3><p>由于API设计的错误，使得调用产生了错误的结果，为了避免踩坑，避免使用form属性名作为表单字段名。</p></div>
+	</section>
+</div></body></html>

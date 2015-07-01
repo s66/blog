@@ -1,0 +1,14 @@
+Array.isArray
+20150623.
+###前言
+ES5新增判断对象是否为数组的API，IE9以下不支持。
+###兼容实现
+code.js
+if(!Array.isArray){
+    Array.isArray = function(obj){
+        return {}.toString.call(obj) == '[object Array]';
+    };
+} 
+.
+xinfo 不过大多数JS库中都会有做兼容封装的方法。
+

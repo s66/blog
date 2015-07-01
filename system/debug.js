@@ -8,6 +8,7 @@ module.exports = {
 	},
 	
 	show: function(){
+        
 		if(message.length == 0){
 			message.push('没有任何操作！');
 		}

@@ -163,7 +163,7 @@
 		}
 		return allList.sort(function(a, b){ //根据修改时间降序
 			//return a.lastmodified < b.lastmodified ? 1 : -1;
-			return a.creattime < b.createtime ? 1 : -1;
+			return a.createtime < b.createtime ? 1 : -1;
 		});
 	}
 	

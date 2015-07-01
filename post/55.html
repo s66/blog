@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/><title>CSS3 函数取值calc()</title><link href="/css/main.css" rel="stylesheet"/><script src="/js/blog.js"></script></head><body><div id="post">
+	<section id="main">
+		<h2 class="title">CSS3 函数取值calc()</h2>
+		<div class="post"><h3>前言</h3><p>CSS3用于计算数值的方法，IE9以下不支持。</p><h3>使用说明</h3><p>语法：calc(expression);</p><p>expression格式：</p><ul><li>使用“+”、“-”、“*” 和 “/”四则运算，“+，-”运算符前后必须带空格</li><li>可以混合使用百分比、px、em、rem、vw、vh等单位；</li></ul><h3>演示</h3><textarea class="lang-html">
+<div style="width:calc(50vw);margin-top:calc(3% - 2*4px);border: calc(10%) solid #000;">div</div>
+<br>
+<style>
+.outer-box{height:100px;width:100px;border:1px solid #000;background:green;}
+.inner-box{margin:5px;background:red;}
+</style>
+<div class="outer-box">
+    <div class="inner-box" style="height:calc(100% - 2*5px);">自适应高度<button onclick="cgsize(this.parentNode.parentNode)">改变高度</button></div>
+</div>
+<script>
+height = 100;
+function cgsize(box){
+    box.style.height = (height = height == 100 ? 150 : 100) +'px';
+}
+</script>
+</textarea><p class="xinfo">50vw为视窗宽度的50%，10%为父容器宽度的10%，发现border不能使用百分比参与运算。</p></div>
+	</section>
+</div></body></html>

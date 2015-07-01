@@ -1,0 +1,32 @@
+CSS3 函数取值calc()
+20150623.
+###前言
+CSS3用于计算数值的方法，IE9以下不支持。
+###使用说明
+
+语法：calc(expression);
+ 
+ expression格式：
+ 
++ 使用“+”、“-”、“*” 和 “/”四则运算，“+，-”运算符前后必须带空格
++ 可以混合使用百分比、px、em、rem、vw、vh等单位；
+
+###演示
+code.html
+<div style="width:calc(50vw);margin-top:calc(3% - 2*4px);border: calc(10%) solid #000;">div</div>
+<br>
+<style>
+.outer-box{height:100px;width:100px;border:1px solid #000;background:green;}
+.inner-box{margin:5px;background:red;}
+</style>
+<div class="outer-box">
+    <div class="inner-box" style="height:calc(100% - 2*5px);">自适应高度<button onclick="cgsize(this.parentNode.parentNode)">改变高度</button></div>
+</div>
+<script>
+height = 100;
+function cgsize(box){
+    box.style.height = (height = height == 100 ? 150 : 100) +'px';
+}
+</script>
+.
+xinfo 50vw为视窗宽度的50%，10%为父容器宽度的10%，发现border不能使用百分比参与运算。

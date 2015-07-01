@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title></title>
+<link href="http://s.1kjs.com/base.css" rel="stylesheet"/>
+<style>
+#doc{margin:8px auto;width:600px;}
+#keyword{width:200px;padding:2px 4px;}
+</style>
+<script src="http://s.1kjs.com/1k.js"></script>
+</head>
+<body>
+<div id=doc>
+<input name=keyword id=keyword /><button id=search>search</button>
+</div>
+<script>
+//Z('#search').click(function(){
+    if(Z('#keyword').val()){
+  
+        Z.jsonp2('http://image.baidu.com/search/acjson?tn=resultjson_com&ipn=rj&word='+encodeURIComponent(Z('#keyword').val()), function(resp){
+            console.info(resp.substr(0,100))
+        })
+    }
+//})
+</script>
+
+
+</body>
+</html>
